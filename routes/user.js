@@ -10,7 +10,7 @@ router.get("/find/:id", verifyTokenAndAdmin, async (req, res) => {
     const {password, ...others} = user._doc
     res.status(200).json(others)
   } catch {
-    return res.status(500).json(err)
+    return res.status(500).json(error)
   }
 })
 
@@ -23,7 +23,7 @@ router.get("/", verifyTokenAndAdmin, async (req, res) => {
       : await User.find()
     res.status(200).json(users)
   } catch {
-    return res.status(500).json(err)
+    return res.status(500).json(error)
   }
 })
 
@@ -74,8 +74,8 @@ router.put("/:id", verifyTokenAndAuthorization, async (req, res) => {
       $set: req.body
     }, {new: true})
     res.status(200).json(updatedUser)
-  } catch(err) {
-    return res.status(500).json(err)
+  } catch(error) {
+    return res.status(500).json(error)
   }
 })
 
@@ -85,7 +85,7 @@ router.delete("/:id", verifyTokenAndAuthorization, async (req, res) => {
     await User.findByIdAndDelete(req.params.id)
     return res.status(200).json("User has been deleted")
   } catch {
-    return res.status(500).json(err)
+    return res.status(500).json(error)
   }
 })
 
